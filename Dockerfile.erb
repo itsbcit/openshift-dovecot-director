@@ -1,0 +1,29 @@
+FROM bcit/openshift-dovecot:<%= version %>
+# vim: syntax=dockerfile
+
+LABEL maintainer="<%= maintainer %>"
+LABEL version="<%= version %>"
+
+<% unless database == '' %>
+ENV DATABASE <%= database %>
+<% end %>
+
+RUN apk --no-cache update \
+ && apk --no-cache add \
+    perl \
+    perl-io-socket-inet6 \
+    perl-io-socket-ssl
+
+RUN mkdir -p "$CONFIGDIR"
+
+WORKDIR /tmp
+
+RUN wget https://raw.githubusercontent.com/brandond/poolmon/<%= poolmon_version %>/poolmon \
+ && mv poolmon /usr/sbin/ \
+ && chmod 755 /usr/sbin/poolmon
+
+WORKDIR /var/lib/dovecot
+
+COPY supervisor-dovecot.conf /etc/supervisor/conf.d/
+
+CMD ["supervisord", "-c", "/etc/supervisor.conf"]
