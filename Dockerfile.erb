@@ -14,8 +14,6 @@ RUN apk --no-cache update \
     perl-io-socket-inet6 \
     perl-io-socket-ssl
 
-RUN mkdir -p "$CONFIGDIR"
-
 WORKDIR /tmp
 
 RUN wget https://raw.githubusercontent.com/brandond/poolmon/<%= poolmon_version %>/poolmon \
