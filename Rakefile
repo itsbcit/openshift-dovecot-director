@@ -14,12 +14,11 @@ org_name = 'bcit'
 image_name = 'openshift-dovecot-director'
 database = ''
 databases = [ 'mysql', 'pgsql', 'sql' ]
-version = '2.3.6-r0'
-poolmon_version = '0.6'
+version = '2.3.10'
+poolmon_version = '0.6' # check here https://github.com/brandond/poolmon/releases
 version_segments = version.split('.')
-patch_segments = version_segments[2].split('-')
 tags = [
-  "#{version_segments[0]}.#{version_segments[1]}.#{patch_segments[0]}",
+  "#{version_segments[0]}.#{version_segments[1]}.#{version_segments[2]}",
   "#{version_segments[0]}.#{version_segments[1]}",
   'latest'
 ]
